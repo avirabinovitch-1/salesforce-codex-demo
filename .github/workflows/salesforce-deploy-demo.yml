@@ -2,11 +2,6 @@ name: Deploy Salesforce Demo
 
 on:
   workflow_dispatch:
-    inputs:
-      deploy_confirmation:
-        description: Type DEPLOY to confirm manual deployment to the demo org.
-        required: true
-        type: string
 
 permissions:
   contents: read
@@ -24,17 +19,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Confirm manual deployment intent
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [[ "$DEPLOY_CONFIRMATION" != "DEPLOY" ]]; then
-            echo "Type DEPLOY in the workflow input to run this deployment." >&2
-            exit 1
-          fi
-        env:
-          DEPLOY_CONFIRMATION: ${{ inputs.deploy_confirmation }}
-
       - name: Check out repository
         uses: actions/checkout@v5
 
