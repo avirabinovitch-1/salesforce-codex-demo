@@ -17,6 +17,7 @@ server.key
 
 # Local deployment secrets and generated certificates
 .local-secrets/
+GitHub-Salesforce-Deploy-Certificate.crt
 
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
