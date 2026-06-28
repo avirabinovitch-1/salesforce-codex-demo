@@ -14,6 +14,9 @@ permissions:
 env:
   SF_SOURCE_DIR: force-app
   SF_TARGET_ORG: demo
+  SF_AUTOUPDATE_DISABLE: true
+  SF_DISABLE_TELEMETRY: true
+  SFDX_DISABLE_TELEMETRY: true
 
 jobs:
   deploy:
@@ -33,7 +36,12 @@ jobs:
           DEPLOY_CONFIRMATION: ${{ inputs.deploy_confirmation }}
 
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
 
       - name: Install Salesforce CLI
         run: npm install --global @salesforce/cli
