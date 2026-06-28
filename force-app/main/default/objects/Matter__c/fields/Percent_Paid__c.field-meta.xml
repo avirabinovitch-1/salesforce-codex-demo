@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Percent_Paid__c</fullName>
+    <formula>IF(Dollar_Placed__c &gt; 0, Total_Payments__c / Dollar_Placed__c, 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Percent Paid</label>
+    <precision>18</precision>
+    <scale>2</scale>
+    <type>Percent</type>
+</CustomField>

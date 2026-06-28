@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HLS_Code__c</fullName>
+    <label>HLS Code</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Verify Pay</fullName>
+                <default>false</default>
+                <label>Verify Pay</label>
+            </value>
+            <value>
+                <fullName>Billable</fullName>
+                <default>false</default>
+                <label>Billable</label>
+            </value>
+            <value>
+                <fullName>Non-billable</fullName>
+                <default>false</default>
+                <label>Non-billable</label>
+            </value>
+            <value>
+                <fullName>Adjustment</fullName>
+                <default>false</default>
+                <label>Adjustment</label>
+            </value>
+            <value>
+                <fullName>Pending Review</fullName>
+                <default>false</default>
+                <label>Pending Review</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

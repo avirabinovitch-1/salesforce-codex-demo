@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Adjustments__c</fullName>
+    <label>Total Adjustments</label>
+    <summarizedField>Matter_Payment__c.Adjustment_Amount__c</summarizedField>
+    <summaryForeignKey>Matter_Payment__c.Matter__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <type>Summary</type>
+</CustomField>

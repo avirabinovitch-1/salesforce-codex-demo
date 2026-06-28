@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payer_Record_Count__c</fullName>
+    <label>Payer Record Count</label>
+    <summaryForeignKey>Matter_Payer__c.Matter__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <type>Summary</type>
+</CustomField>

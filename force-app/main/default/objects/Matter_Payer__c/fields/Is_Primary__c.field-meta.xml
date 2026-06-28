@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Primary__c</fullName>
+    <formula>OR(Payer_Order__c = 1, ISPICKVAL(Payer_Role__c, &quot;Primary&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Primary</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Denial_Reason__c</fullName>
+    <label>Denial Reason</label>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Medical Necessity</fullName>
+                <default>false</default>
+                <label>Medical Necessity</label>
+            </value>
+            <value>
+                <fullName>Timely Filing</fullName>
+                <default>false</default>
+                <label>Timely Filing</label>
+            </value>
+            <value>
+                <fullName>Authorization</fullName>
+                <default>false</default>
+                <label>Authorization</label>
+            </value>
+            <value>
+                <fullName>Coding</fullName>
+                <default>false</default>
+                <label>Coding</label>
+            </value>
+            <value>
+                <fullName>Eligibility</fullName>
+                <default>false</default>
+                <label>Eligibility</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

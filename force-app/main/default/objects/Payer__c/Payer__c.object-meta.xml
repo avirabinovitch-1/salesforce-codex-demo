@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Reusable payer reference record for the HLS demo.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <label>Payer</label>
+    <nameField>
+        <label>Payer Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Payers</pluralLabel>
+    <enableSearch>true</enableSearch>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

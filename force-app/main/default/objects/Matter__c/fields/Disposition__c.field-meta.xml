@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disposition__c</fullName>
+    <label>Disposition</label>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Appeal Pending</fullName>
+                <default>false</default>
+                <label>Appeal Pending</label>
+            </value>
+            <value>
+                <fullName>Submitted Online</fullName>
+                <default>false</default>
+                <label>Submitted Online</label>
+            </value>
+            <value>
+                <fullName>Fax Submitted</fullName>
+                <default>false</default>
+                <label>Fax Submitted</label>
+            </value>
+            <value>
+                <fullName>Print/Mail Submitted</fullName>
+                <default>false</default>
+                <label>Print/Mail Submitted</label>
+            </value>
+            <value>
+                <fullName>Response Received</fullName>
+                <default>false</default>
+                <label>Response Received</label>
+            </value>
+            <value>
+                <fullName>Payment Posted</fullName>
+                <default>false</default>
+                <label>Payment Posted</label>
+            </value>
+            <value>
+                <fullName>Closed</fullName>
+                <default>false</default>
+                <label>Closed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

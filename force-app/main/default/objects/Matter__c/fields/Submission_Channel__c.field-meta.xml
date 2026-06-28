@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submission_Channel__c</fullName>
+    <label>Submission Channel</label>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Online Portal</fullName>
+                <default>false</default>
+                <label>Online Portal</label>
+            </value>
+            <value>
+                <fullName>Fax</fullName>
+                <default>false</default>
+                <label>Fax</label>
+            </value>
+            <value>
+                <fullName>Print/Mail</fullName>
+                <default>false</default>
+                <label>Print/Mail</label>
+            </value>
+            <value>
+                <fullName>API</fullName>
+                <default>false</default>
+                <label>API</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Central healthcare appeal workspace for the HLS demo command center.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <label>Matter</label>
+    <nameField>
+        <displayFormat>HLS-APL-{0000}</displayFormat>
+        <label>Matter Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Matters</pluralLabel>
+    <enableSearch>true</enableSearch>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Appeal_Level__c</fullName>
+    <label>Appeal Level</label>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>First-level Appeal</fullName>
+                <default>false</default>
+                <label>First-level Appeal</label>
+            </value>
+            <value>
+                <fullName>Second-level Appeal</fullName>
+                <default>false</default>
+                <label>Second-level Appeal</label>
+            </value>
+            <value>
+                <fullName>External Review</fullName>
+                <default>false</default>
+                <label>External Review</label>
+            </value>
+            <value>
+                <fullName>Reconsideration</fullName>
+                <default>false</default>
+                <label>Reconsideration</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
