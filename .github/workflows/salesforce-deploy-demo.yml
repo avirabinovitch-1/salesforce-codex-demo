@@ -19,7 +19,6 @@ jobs:
   deploy:
     name: Deploy Salesforce metadata
     runs-on: ubuntu-latest
-    environment: demo
 
     steps:
       - name: Confirm manual deployment intent
