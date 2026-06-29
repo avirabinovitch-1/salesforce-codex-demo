@@ -12,6 +12,10 @@ env:
   SF_AUTOUPDATE_DISABLE: true
   SF_DISABLE_TELEMETRY: true
   SFDX_DISABLE_TELEMETRY: true
+  SF_DISABLE_DNS_CHECK: true
+  SFDX_DISABLE_DNS_CHECK: true
+  SF_USE_GENERIC_UNIX_KEYCHAIN: true
+  USE_GENERIC_UNIX_KEYCHAIN: true
 
 jobs:
   deploy:
@@ -37,6 +41,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p "$HOME/.sfdx" "$HOME/.sf"
+          chmod 700 "$HOME/.sfdx" "$HOME/.sf"
+
           : "${SF_AUTH_URL_B64:?SF_AUTH_URL_B64 secret is required}"
           printf '%s' "$SF_AUTH_URL_B64" | base64 --decode > sf-auth-url.txt
 
@@ -60,7 +67,8 @@ jobs:
 
           if ! sf org login sfdx-url \
             --sfdx-url-file sf-auth-url.txt \
-            --alias "$SF_TARGET_ORG" > sf-auth.log 2>&1; then
+            --alias "$SF_TARGET_ORG" \
+            --json > sf-auth.log 2>&1; then
             echo "::error::Salesforce auth failed."
             {
               echo ""
