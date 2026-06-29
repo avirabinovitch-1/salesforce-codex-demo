@@ -2,6 +2,14 @@ name: Deploy Salesforce Demo
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/scripts/deploy-salesforce.cjs"
+      - ".github/workflows/salesforce-deploy-demo.yml"
+      - "force-app/**"
+      - "sfdx-project.json"
 
 permissions:
   contents: read
