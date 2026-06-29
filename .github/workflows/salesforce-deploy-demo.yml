@@ -37,7 +37,7 @@ jobs:
       - name: Show Salesforce CLI version
         run: sf --version
 
-      - name: Authenticate to Salesforce
+      - name: Get Salesforce access token
         shell: bash
         run: |
           set -euo pipefail
@@ -65,9 +65,71 @@ jobs:
             echo "- Format check: valid force URL"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if ! sf org login sfdx-url \
-            --sfdx-url-file sf-auth-url.txt \
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+
+          const authUrl = fs.readFileSync('sf-auth-url.txt', 'utf8').trim();
+          const match = authUrl.match(/^force:\/\/([^:]*):([^:]*):([^@]*)@(.+)$/);
+
+          if (!match) {
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '\nSalesforce auth URL did not match the expected force:// format.\n');
+            process.exit(1);
+          }
+
+          const [, clientId, clientSecret, refreshToken, rawInstance] = match;
+          const host = rawInstance.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+          const instanceUrl = `https://${host}`;
+          const params = new URLSearchParams({
+            grant_type: 'refresh_token',
+            client_id: clientId,
+            refresh_token: refreshToken,
+          });
+
+          if (clientSecret) params.set('client_secret', clientSecret);
+
+          const response = await fetch(`${instanceUrl}/services/oauth2/token`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            body: params,
+          });
+          const bodyText = await response.text();
+          let body;
+
+          try {
+            body = JSON.parse(bodyText);
+          } catch {
+            body = { raw: bodyText.slice(0, 500) };
+          }
+
+          if (!response.ok || !body.access_token) {
+            fs.appendFileSync(
+              process.env.GITHUB_STEP_SUMMARY,
+              `\nSalesforce OAuth token exchange failed:\n\n\`\`\`\n${JSON.stringify({
+                status: response.status,
+                error: body.error,
+                error_description: body.error_description,
+                raw: body.raw,
+              }, null, 2)}\n\`\`\`\n`,
+            );
+            process.exit(1);
+          }
+
+          console.log(`::add-mask::${body.access_token}`);
+          fs.appendFileSync(process.env.GITHUB_ENV, `SF_ACCESS_TOKEN<<SF_TOKEN\n${body.access_token}\nSF_TOKEN\n`);
+          fs.appendFileSync(process.env.GITHUB_ENV, `SF_INSTANCE_URL=${body.instance_url || instanceUrl}\n`);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, '\n- OAuth refresh: access token issued\n');
+          NODE
+        env:
+          SF_AUTH_URL_B64: ${{ secrets.SF_AUTH_URL_B64 }}
+
+      - name: Store Salesforce session
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! sf org login access-token \
+            --instance-url "$SF_INSTANCE_URL" \
             --alias "$SF_TARGET_ORG" \
+            --no-prompt \
             --json > sf-auth.log 2>&1; then
             echo "::error::Salesforce auth failed."
             {
@@ -80,8 +142,6 @@ jobs:
             cat sf-auth.log >&2
             exit 1
           fi
-        env:
-          SF_AUTH_URL_B64: ${{ secrets.SF_AUTH_URL_B64 }}
 
       - name: Choose Salesforce test level
         id: test-level
