@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payer_Role_Order_Match</fullName>
+    <active>true</active>
+    <description>Keeps payer role and payer order aligned for the demo model.</description>
+    <errorConditionFormula>OR(
+    AND(ISPICKVAL(Payer_Role__c, &quot;Primary&quot;), Payer_Order__c &lt;&gt; 1),
+    AND(ISPICKVAL(Payer_Role__c, &quot;Secondary&quot;), Payer_Order__c &lt;&gt; 2),
+    AND(ISPICKVAL(Payer_Role__c, &quot;Tertiary&quot;), Payer_Order__c &lt;&gt; 3)
+)</errorConditionFormula>
+    <errorDisplayField>Payer_Order__c</errorDisplayField>
+    <errorMessage>Primary must be order 1, Secondary must be order 2, and Tertiary must be order 3.</errorMessage>
+</ValidationRule>

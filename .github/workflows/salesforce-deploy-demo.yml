@@ -9,6 +9,7 @@ permissions:
 env:
   SF_SOURCE_DIR: force-app
   SF_TARGET_ORG: demo
+  SF_API_VERSION: "67.0"
   SF_AUTOUPDATE_DISABLE: true
   SF_DISABLE_TELEMETRY: true
   SFDX_DISABLE_TELEMETRY: true
@@ -31,11 +32,12 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Salesforce CLI
-        run: npm install --global @salesforce/cli
-
-      - name: Show Salesforce CLI version
-        run: sf --version
+      - name: Install Salesforce deployment libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --global @salesforce/source-deploy-retrieve @salesforce/core
+          echo "NODE_PATH=$(npm root -g)" >> "$GITHUB_ENV"
 
       - name: Get Salesforce access token
         shell: bash
@@ -122,27 +124,6 @@ jobs:
         env:
           SF_AUTH_URL_B64: ${{ secrets.SF_AUTH_URL_B64 }}
 
-      - name: Store Salesforce session
-        shell: bash
-        run: |
-          set -euo pipefail
-          if ! sf org login access-token \
-            --instance-url "$SF_INSTANCE_URL" \
-            --alias "$SF_TARGET_ORG" \
-            --no-prompt \
-            --json > sf-auth.log 2>&1; then
-            echo "::error::Salesforce auth failed."
-            {
-              echo ""
-              echo "Salesforce CLI error:"
-              echo '```'
-              sed -E 's#force://[^[:space:]]+#force://[redacted]#g' sf-auth.log | tail -n 30
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
-            cat sf-auth.log >&2
-            exit 1
-          fi
-
       - name: Choose Salesforce test level
         id: test-level
         shell: bash
@@ -160,11 +141,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sf project deploy start \
-            --source-dir "$SF_SOURCE_DIR" \
-            --target-org "$SF_TARGET_ORG" \
-            --test-level "${{ steps.test-level.outputs.test_level }}" \
-            --wait 60
+          SF_TEST_LEVEL="${{ steps.test-level.outputs.test_level }}" \
+            node .github/scripts/deploy-salesforce.cjs
 
       - name: Write deployment summary
         if: always()
@@ -183,4 +161,4 @@ jobs:
 
       - name: Remove Salesforce auth file
         if: always()
-        run: rm -f sf-auth-url.txt sf-auth.log
+        run: rm -f sf-auth-url.txt
